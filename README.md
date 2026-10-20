@@ -91,6 +91,18 @@ Then **Restart Kernel and Run All**. The full configuration trains 5 random seed
 
 **Method note:** Both model families use Gaussian NLL and L2 weight regularization (a Gaussian-weight-prior interpretation). Concrete Dropout additionally learns dropout rates. The real dataset is provided by scikit-learn, so there is no separate dataset download.
 
+## NumPy/PyTorch compatibility
+
+This environment pins `numpy=1.26.4` because some PyTorch builds compiled against NumPy 1.x cannot initialize NumPy 2.x. If you already created the environment with NumPy 2.x, repair it in Anaconda Prompt:
+
+```bat
+conda activate concrete-dropout
+conda install numpy=1.26.4 -y
+python -c "import numpy, torch; print(numpy.__version__, torch.__version__); print(torch.tensor([1.0]).numpy())"
+```
+
+Restart the notebook kernel afterward.
+
 ## Troubleshooting
 
 **`conda` not recognized**: Launch Anaconda Prompt / Miniconda Prompt, not plain PowerShell. Confirm with `conda --version`.
